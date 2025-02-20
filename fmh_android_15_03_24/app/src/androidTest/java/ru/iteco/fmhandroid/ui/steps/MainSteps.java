@@ -2,10 +2,8 @@ package ru.iteco.fmhandroid.ui.steps;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.elements.Main.getMainElementsButtonAllNews;
 import static ru.iteco.fmhandroid.ui.elements.Main.getMainElementsButtonMain;
@@ -47,17 +45,6 @@ public class MainSteps {
                 .perform(click());
     }
 
-    public static void allNewsExpanded() {
-        Allure.step("Содержание вкладки - кнопка Все Новости  (All NEWS) - свернулось");
-        onView(getMainElementsButtonAllNews())
-                .check(matches(isNotEnabled()));
-    }
-
-    public static void allNewsUnexpanded() {
-        Allure.step(" Отобразилось содержание вкладки - кнопка Все новости (ALL NEWS)");
-        onView(getMainElementsButtonAllNews())
-                .check(matches(isDisplayed()));
-    }
 
     public static void showTitleNewsOnMain() {
         Allure.step(" Отобразилась панель Новости (News)");

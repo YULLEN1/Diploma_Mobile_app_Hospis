@@ -6,21 +6,23 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.buttonSortingControlPanel;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.buttonToExpandNews;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.categoryText;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsAddNews;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonCategoryCreatingNews;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonControlPanel;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonDateCreatingNews;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonOkDateCreatingNews;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonOkTimeCreatingNews;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonSaveCreatingNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonSortingControlPanel;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonTimeCreatingNews;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonTitleCreatingNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonToDeleteNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonToEditNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonToExpandNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonToOkDeleteNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsButtonToSwitchStatusNews;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsCategoryText;
 import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsDescriptionCreatingNews;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsFieldCategory;
-import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.inputTime;
+import static ru.iteco.fmhandroid.ui.elements.NewsControlPanel.getNewsControlPanelElementsInputTime;
 
 import io.qameta.allure.kotlin.Allure;
 
@@ -83,10 +85,10 @@ public class NewsControlPanelSteps {
 
     public static void fillInNewsCategoryField(String text) {
         Allure.step("Поле категория - ввод данных");
-        onView(categoryText()).perform(replaceText(text));
+        onView(getNewsControlPanelElementsCategoryText()).perform(click(), clearText(), replaceText(text), closeSoftKeyboard());
     }
 
-    static String nextYear = "30.05.2023";
+    static String nextYear = "15.04.2026";
 
     public static void clickButtonDateCreatingNextDate() {
         Allure.step("В поле Дата публикации выбрать дату будущего года");
@@ -96,19 +98,45 @@ public class NewsControlPanelSteps {
 
     public static void manualInputTime() {
         Allure.step("Вручную ввести время публикации новости");
-        onView(inputTime())
+        onView(getNewsControlPanelElementsInputTime())
                 .perform(click());
     }
 
     public static void clickButtonSortingNews() {
         Allure.step("Нажать кнопку Сортировать новости в Панели управления");
-        onView(buttonSortingControlPanel())
+        onView(getNewsControlPanelElementsButtonSortingControlPanel())
                 .perform(click());
     }
 
     public static void clickButtonToExpandNews() {
         Allure.step("Нажать кнопку Развернуть новость в Панели управления");
-        onView(buttonToExpandNews())
+        onView(getNewsControlPanelElementsButtonToExpandNews())
                 .perform(click());
     }
+
+    public static void clickButtonToDeleteNews() {
+        Allure.step("Нажать кнопку Удалить новость в Панели управления");
+        onView(getNewsControlPanelElementsButtonToDeleteNews())
+                .perform(click());
+    }
+
+    public static void clickButtonToOkDeleteNews() {
+        Allure.step("Нажать кнопку ОК Удалить новость в Панели управления");
+        onView(getNewsControlPanelElementsButtonToOkDeleteNews())
+                .perform(click());
+    }
+
+    public static void clickButtonToEditNews() {
+        Allure.step("Нажать кнопку Редактировать новость в Панели управления");
+        onView(getNewsControlPanelElementsButtonToEditNews())
+                .perform(click());
+    }
+
+    public static void clickButtonToSwitchStatusNews() {
+        Allure.step("Сменить статус Активная на статус Не активна (передвинуть рычажок).");
+        onView(getNewsControlPanelElementsButtonToSwitchStatusNews())
+                .perform(click());
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package ru.iteco.fmhandroid.ui.elements;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -9,7 +8,6 @@ import static org.hamcrest.Matchers.allOf;
 import android.view.View;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsInstanceOf;
 
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.steps.MainSteps;
