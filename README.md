@@ -26,7 +26,7 @@
 
 2. В терминале выполнить команду:
 
-```adb shell am instrument -w -m    -e debug false -e class 'ru.iteco.fmhandroid.ui.tests.AllTests' ru.iteco.fmhandroid.test/androidx.test.runner.AndroidJUnitRunner```
+```$ adb shell am instrument -w -m    -e debug false -e class 'ru.iteco.fmhandroid.ui.tests.AllTests' ru.iteco.fmhandroid.test/androidx.test.runner.AndroidJUnitRunner```
 
 ## Документация
 
