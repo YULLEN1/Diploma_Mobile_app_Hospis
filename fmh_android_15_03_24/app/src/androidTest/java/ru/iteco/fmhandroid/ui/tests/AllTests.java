@@ -8,7 +8,9 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static ru.iteco.fmhandroid.ui.resources.Timeout.waitDisplayed;
 import static ru.iteco.fmhandroid.ui.util.NewsTest.withIndex;
 
@@ -27,7 +29,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.kotlin.Description;
-import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Flaky;
 import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
@@ -36,13 +37,13 @@ import ru.iteco.fmhandroid.ui.steps.AuthorizationSteps;
 import ru.iteco.fmhandroid.ui.steps.MainSteps;
 import ru.iteco.fmhandroid.ui.steps.NewsControlPanelSteps;
 import ru.iteco.fmhandroid.ui.steps.NewsSteps;
+import ru.iteco.fmhandroid.ui.steps.ThematicQuoteSteps;
+
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 //@RunWith(AllureAndroidJUnit4.class)
-
-@Epic("Тест-кейсы для проведения функционального тестирования \"Панели управления\" (Control panel) новостей мобильного приложения \"Мобильный хоспис\".")
-public class NewsControlPanelTest {
+public class AllTests {
 
     @Rule
     public ActivityScenarioRule<AppActivity> activityRule =
@@ -75,6 +76,56 @@ public class NewsControlPanelTest {
         AuthorizationSteps.clickButtonLogOut();
     }
 
+    //   TC - 12 - Переход на вкладку "Главная страница" (Main) через главное меню мобильного приложения "Мобильный хоспис"(Позитивный).
+    @Test
+    @Story("TC - 12")
+    @Description("Переход на вкладку \"Главная страница\" (Main) через главное меню мобильного приложения \"Мобильный хоспис\" (Позитивный).")
+    public void Main() {
+        onView(isRoot()).perform(waitDisplayed(R.id.main_menu_image_button, 5000));
+        MainSteps.clickButtonMainMenu();
+        NewsSteps.clickButtonNews();
+        onView(withText("News")).check(matches(isDisplayed()));
+        MainSteps.clickButtonMainMenu();
+        MainSteps.clickButtonMain();
+        onView(withText("News")).check(matches(isDisplayed()));
+    }
+
+    //  ТС - 13 - Свернуть/развернуть вкладку "Новости" (News)  на  вкладке "Главная страница" (Main) мобильного приложения "Мобильный хоспис" (Позитивный).
+    @Test
+    @Story("TC - 13")
+    @Description("Свернуть/развернуть вкладку \"Новости\" (News)  на  вкладке \"Главная страница\" (Main) мобильного приложения \"Мобильный хоспис\" (Позитивный).")
+    public void extendNews() {
+        onView(isRoot()).perform(waitDisplayed(R.id.expand_material_button, 5000));
+        MainSteps.clickButtonToExpandNews();
+        MainSteps.clickButtonToExpandNews();
+        onView(withId(R.id.all_news_text_view)).check(matches(withText("ALL NEWS")));
+    }
+
+
+    //  TC - 14 - Переход во вкладку "Все новости" (ALL NEWS) через вкладку "Главная страница" (Main) мобильного приложения "Мобильный хоспис" (Позитивный).
+    @Test
+    @Story("TC - 14")
+    @Description(" Переход во вкладку Все новости (ALL NEWS) через главное меню мобильного приложения Мобильный хоспис (Позитивный).")
+    public void transferToAllNewsThroughMainMenu() {
+        onView(isRoot()).perform(waitDisplayed(R.id.main_menu_image_button, 5000));
+        MainSteps.clickButtonMainMenu();
+        NewsSteps.clickButtonNews();
+        onView(allOf(withText("News"),
+                withParent(withParent(withId(R.id.container_list_news_include))))).check(matches(isDisplayed()));
+    }
+
+
+    //  TC - 15 - Переход во вкладку "Все новости" (ALL NEWS) через вкладку "Главная страница" (Main) мобильного приложения "Мобильный хоспис" (Позитивный).
+    @Test
+    @Story("TC - 15")
+    @Description("Переход во вкладку Все новости (ALL NEWS) через вкладку Главная страница (Main) мобильного приложения Мобильный хоспис (Позитивный).")
+    public void transferToAllNewsThroughMainPage() {
+        onView(isRoot()).perform(waitDisplayed(R.id.main_menu_image_button, 5000));
+        MainSteps.showButtonAllNews();
+        MainSteps.clickButtonAllNews();
+        onView(allOf(withText("News"),
+                withParent(withParent(withId(R.id.container_list_news_include))))).check(matches(isDisplayed()));
+    }
 
     //  ТC - 19 - Создание активной новости с категорией "Объявление" во вкладке "Панели управления" (Control panel) в мобильном приложении "Мобильный хоспис" (Позитивный).
     @Test
@@ -181,7 +232,7 @@ public class NewsControlPanelTest {
         NewsControlPanelSteps.fillInNewsCategoryField("Зарплата");
         NewsControlPanelSteps.fillTitleCreatingNews("Начисление зарплаты");
         NewsControlPanelSteps.clickButtonDateCreatingNextDate();
-        NewsControlPanelSteps.fillDescriptionCreatingNews("Зарплата перчислена");
+        NewsControlPanelSteps.fillDescriptionCreatingNews("Зарплата перечислена");
         NewsControlPanelSteps.clickButtonSaveCreatingNews();
         onView(withText("Fill empty fields"))
                 .inRoot(withDecorView(Matchers.not(decorView)))// Here you use decorView
@@ -438,4 +489,15 @@ public class NewsControlPanelTest {
         NewsControlPanelSteps.clickButtonToOkDeleteNews();
     }
 
+    //  ТC - 52 - Развернуть/свернуть тематическую цитату, во вкладке "Love is all", мобильного приложения "Мобильный хоспис" (Позитивный).
+    @Test
+    @Story("TC - 52")
+    @Description("Развернуть/свернуть тематическую цитату, во вкладке \"Love is all\", мобильного приложения \"Мобильный хоспис\" (Позитивный).")
+    public void expandThematicQuote() {
+        onView(isRoot()).perform(waitDisplayed(R.id.our_mission_image_button, 5000));
+        ThematicQuoteSteps.clickButtonThematicQuote();
+        ThematicQuoteSteps.checkTitleThematicQuote();
+        ThematicQuoteSteps.clickButtonToExpandThematicQuote();
+        onView(withIndex(withId(R.id.our_mission_item_description_text_view), 0)).check(matches(isDisplayed()));
+    }
 }

@@ -1,7 +1,6 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasData;
@@ -20,7 +19,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Story;
@@ -68,7 +66,6 @@ public class AboutTest {
         AboutSteps.clickButtonPrivacyPolicy();
         intended(hasData("https://vhospice.org/#/privacy-policy/")); // Проверка Intent
         intended(hasAction(Intent.ACTION_VIEW));
-        pressBack();
     }
 
     //  TC - 54 - Просмотр ссылки "Пользовательское соглашение"  (Terms of use) во вкладке "О приложении" (About) мобильного приложения "Мобильный хоспис" (Позитивный).
@@ -82,6 +79,5 @@ public class AboutTest {
         AboutSteps.clickButtonTermsOfUse();
         intended(hasData("https://vhospice.org/#/terms-of-use")); // Проверка Intent
         intended(hasAction(Intent.ACTION_VIEW));
-        pressBack();
     }
 }
