@@ -44,4 +44,4 @@
 5. [Тест-кейсы](https://github.com/YULLEN1/Diploma_Mobile_app_Hospis/blob/main/Cases.xlsx)
 
    
-7. Отчёт о проведённом тестировании
+7. [Отчёт о проведённом тестировании](https://github.com/YULLEN1/Diploma_Mobile_app_Hospis/blob/main/Result.md)
