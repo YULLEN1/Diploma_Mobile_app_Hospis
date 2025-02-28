@@ -38,7 +38,7 @@
 
 1. [План автоматизации тестирования](https://github.com/YULLEN1/Diploma_Mobile_app_Hospis/blob/main/Plan.md)
    
-3. Чек-лист
+3. [Чек-лист](https://github.com/YULLEN1/Diploma_Mobile_app_Hospis/blob/main/Check.xlsx)
 
    
 5. Тест-кейсы
