@@ -1,31 +1,35 @@
 package ru.iteco.fmhandroid.ui.steps;
 
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static ru.iteco.fmhandroid.ui.elements.About.getABoutElementButtonAbout;
-import static ru.iteco.fmhandroid.ui.elements.About.getABoutElementButtonPrivacyPolicy;
-import static ru.iteco.fmhandroid.ui.elements.About.getABoutElementButtonTermsOfUse;
 
 import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.ui.elements.AboutPage;
 
 public class AboutSteps {
+    AboutPage aboutPage = new AboutPage();
 
-    public static void clickButtonAboutMainMenu() {
+    public void clickButtonAboutMainMenu() {
         Allure.step("Нажать кнопку О приложении (About) в Главном меню");
-        onView(getABoutElementButtonAbout())
+        aboutPage.getABoutElementButtonAbout
                 .perform(click());
     }
 
-    public static void clickButtonPrivacyPolicy() {
+    public void clickButtonPrivacyPolicy() {
         Allure.step(" Нажать на ссылку Политика конфиденциальности (Privacy policy).");
-        onView(getABoutElementButtonPrivacyPolicy())
+        aboutPage.getABoutElementButtonPrivacyPolicy
                 .perform(click());
     }
 
-    public static void clickButtonTermsOfUse() {
+    public void clickButtonTermsOfUse() {
         Allure.step("Нажать на ссылку Пользовательское соглашение (Terms of use).");
-        onView(getABoutElementButtonTermsOfUse())
+        aboutPage.getABoutElementButtonTermsOfUse
                 .perform(click());
+    }
+
+    public void clickButtonPressBack() {
+        Allure.step("Нажать на ссылку Пользовательское соглашение (Terms of use).");
+        aboutPage.getPressBackButton.
+                perform(click());
     }
 
 

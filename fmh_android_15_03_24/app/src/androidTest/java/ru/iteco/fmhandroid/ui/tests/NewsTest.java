@@ -8,13 +8,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static ru.iteco.fmhandroid.ui.resources.Timeout.waitDisplayed;
+import static ru.iteco.fmhandroid.ui.data.DataHelper.waitDisplayed;
+import static ru.iteco.fmhandroid.ui.steps.AuthorizationSteps.getLogin;
+import static ru.iteco.fmhandroid.ui.steps.AuthorizationSteps.getPassword;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,25 +36,23 @@ import ru.iteco.fmhandroid.ui.steps.NewsSteps;
 
 @Epic("Тест-кейсы для проведения функционального тестирования вкладки \"Новости\" (News) мобильного приложения \"Мобильный хоспис\".")
 public class NewsTest {
-
+    AuthorizationSteps authorizationSteps = new AuthorizationSteps();
+    MainSteps mainSteps = new MainSteps();
+    NewsSteps newsSteps = new NewsSteps();
     @Rule
     public ActivityTestRule<AppActivity> activityTestRule =
             new ActivityTestRule<>(AppActivity.class);
 
     @Before
-    public void Authorization() {
-        onView(isRoot()).perform(waitDisplayed(R.id.login_text_input_layout, 5000));
-        AuthorizationSteps.textAuthorization();
-        AuthorizationSteps.fillLoginField("login2");
-        AuthorizationSteps.fillPasswordField("password2");
-        AuthorizationSteps.clickButtonSignIn();
-    }
-
-    @After
-    public void Exit() {
-        onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 5000));
-        AuthorizationSteps.clickButtonExit();
-        AuthorizationSteps.clickButtonLogOut();
+    public void setUp() {
+        try {
+            mainSteps.mainScreenLoad();
+        } catch (Exception e) {
+            authorizationSteps.fillLoginField(getLogin());
+            authorizationSteps.fillPasswordField(getPassword());
+            authorizationSteps.clickButtonSignIn();
+            mainSteps.mainScreenLoad();
+        }
     }
 
     //  Тест-кейсы для проведения функционального тестирования вкладки "Новости" (News) мобильного приложения "Мобильный хоспис".
@@ -63,9 +62,9 @@ public class NewsTest {
     @Story("TC - 14")
     @Description(" Переход во вкладку Все новости (ALL NEWS) через главное меню мобильного приложения Мобильный хоспис (Позитивный).")
     public void transferToAllNewsThroughMainMenu() {
-        onView(isRoot()).perform(waitDisplayed(R.id.main_menu_image_button, 5000));
-        MainSteps.clickButtonMainMenu();
-        NewsSteps.clickButtonNews();
+        onView(isRoot()).perform(waitDisplayed(mainSteps.getMainMenuButton(), 5000));
+        mainSteps.clickButtonMainMenu();
+        newsSteps.clickButtonNews();
         onView(allOf(withText("News"),
                 withParent(withParent(withId(R.id.container_list_news_include))))).check(matches(isDisplayed()));
     }
@@ -76,9 +75,9 @@ public class NewsTest {
     @Story("TC - 15")
     @Description("Переход во вкладку Все новости (ALL NEWS) через вкладку Главная страница (Main) мобильного приложения Мобильный хоспис (Позитивный).")
     public void transferToAllNewsThroughMainPage() {
-        onView(isRoot()).perform(waitDisplayed(R.id.main_menu_image_button, 5000));
-        MainSteps.showButtonAllNews();
-        MainSteps.clickButtonAllNews();
+        onView(isRoot()).perform(waitDisplayed(mainSteps.getMainMenuButton(), 5000));
+        mainSteps.showButtonAllNews();
+        mainSteps.clickButtonAllNews();
         onView(allOf(withText("News"),
                 withParent(withParent(withId(R.id.container_list_news_include))))).check(matches(isDisplayed()));
     }
