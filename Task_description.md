@@ -32,7 +32,7 @@
 - тематические цитаты;
 - информацию о приложении.
 
-![](pic/app.png)
+![](https://github.com/YULLEN1/Diploma_Mobile_app_Hospis/blob/main/pics/app.png)
 
 
 ---
